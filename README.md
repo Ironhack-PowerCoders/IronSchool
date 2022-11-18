@@ -47,7 +47,9 @@ A parameterized constructor that takes name, address and email
 Public Getter functions to access these variables
 Public Setter functions to change these variables
 Optional attributes are accepted if needed based on the code structure
-How the application works
+
+## How the application works
+
 The application starts by asking the user for a name for the school
 Next, the user is asked for a number of how many teachers should be created
 Next, the user is prompted to enter the details of each teacher (based on the number chosen above)
