@@ -1,5 +1,8 @@
 package org.example;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Student {
     /*    Student:
     >String studentId (auto-generated) - PM (->private member)´
@@ -14,33 +17,28 @@ public class Student {
     private String nameSurname;
     private String address;
     private String email;
-    private Course course;
     private static int counter = 0;
 
-    public Student(String nameSurname, String address, String email, Course course) {
+    private Map<String,Course> studentCourseMap;
+
+    public Student(String nameSurname, String address, String email) {
         setNameSurname(nameSurname);
-        setStudentId(nameSurname, course);
+        setStudentId(nameSurname);
         setAddress(address);
         setEmail(email);
-        setCourse();
+        setStudentCourseMap();
+
     }
 
     public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(String name, Course course) {
-        String[] nameSurnameSplited = nameSurname.split(" ");
-            String time;
-            String courseTime = course.getTime().toLowerCase();
-            if (courseTime.equals("mañana")) {
-                time = "1";
-            } else if (courseTime.equals("tarde")) {
-                time = "2";
-            } else time = "3";
+    public void setStudentId(String name) {
+        String[] nameSurnameSplited = name.split(" ");
 
             this.studentId = "SJAVA" + nameSurnameSplited[0].split("")[0].toUpperCase() +
-                    nameSurnameSplited[1].split("")[0].toUpperCase() + course.getGrade() + "0" + time + 22+ counter;
+                    nameSurnameSplited[1].split("")[0].toUpperCase() + "0" + 22+ counter;
             counter++;
     }
 
@@ -70,11 +68,12 @@ public class Student {
         this.email = email;
     }
 
-    public Course getCourse() {
-        return course;
+
+    public Map<String, Course> getStudentCourseMap() {
+        return studentCourseMap;
     }
 
-    public void setCourse() {
-        this.course = null;
+    public void setStudentCourseMap() {
+        this.studentCourseMap = new HashMap<>();
     }
 }

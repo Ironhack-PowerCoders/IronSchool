@@ -1,5 +1,8 @@
 package org.example;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Course {
     /*   >String courseId (auto-generated) - Private member)
     > String name - private member
@@ -18,14 +21,17 @@ public class Course {
     private String time;
     private int grade;
 
+    private Map<String,Student> courseStudentMap;
+
     public Course(String name, double price, String time, int grade) {
-        setCourseId();
+        setCourseId(name,time,grade);
         setName(name);
         setPrice(price);
-        setMoney_earned();
         setTeacher();
         setGrade(grade);
         setTime(time);
+        setCourseStudentMap();
+
     }
 
     public String getTime() {
@@ -48,9 +54,19 @@ public class Course {
         return courseId;
     }
 
-    public void setCourseId() {
-        this.courseId = courseId;
+    public void setCourseId(String name, String time, int grade) {
+        String courseTime = time.toLowerCase();
+        if(courseTime.equals("mañana")){
+            time = "1";
+        } else if (courseTime.equals("tarde")) {
+            time = "2";
+        }else time = "3";
+
+        //PRIMERO VA DOS PRIMERAS LETRAS DEL CURSO, EL GRADO, UN SEPARADOR 0, EL HORARIO (1,2,3) Y EL AÑO
+        this.courseId = name.split("")[0].toUpperCase() +name.split("")[1].toUpperCase() + grade + "0"+ time  + 22;
     }
+
+
 
     public String getName() {
         return name;
@@ -72,8 +88,8 @@ public class Course {
         return money_earned;
     }
 
-    public void setMoney_earned() {
-        this.money_earned = 0.0;
+    public void setMoney_earned(double coursePrice) {
+        this.money_earned += coursePrice;
     }
 
     public Teacher getTeacher() {
@@ -82,5 +98,13 @@ public class Course {
 
     public void setTeacher() {
         this.teacher = null;
+    }
+
+    public Map<String, Student> getCourseStudentMap() {
+        return courseStudentMap;
+    }
+
+    public void setCourseStudentMap() {
+        this.courseStudentMap = new HashMap<>();
     }
 }
