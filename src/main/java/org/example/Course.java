@@ -17,7 +17,6 @@ public class Course {
     private String name;
     private double price;
     private double money_earned = 0.00;
-    private Teacher teacher = null;
     private String time;
     private int grade;
 
@@ -27,7 +26,6 @@ public class Course {
         setCourseId(name,time,grade);
         setName(name);
         setPrice(price);
-        setTeacher();
         setGrade(grade);
         setTime(time);
         setCourseStudentMap();
@@ -92,13 +90,13 @@ public class Course {
         this.money_earned += coursePrice;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
-    }
+//    public Teacher getTeacher() {
+//        return teacher;
+//    }
 
-    public void setTeacher() {
-        this.teacher = null;
-    }
+//    public void setTeacher() {
+//        this.teacher = null;
+//    }
 
     public Map<String, Student> getCourseStudentMap() {
         return courseStudentMap;
@@ -106,5 +104,16 @@ public class Course {
 
     public void setCourseStudentMap() {
         this.courseStudentMap = new HashMap<>();
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", money_earned=" + money_earned +
+                ", time='" + time + '\'' +
+                ", grade=" + grade +
+                '}';
     }
 }

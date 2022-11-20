@@ -1,5 +1,8 @@
 package org.example;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Teacher {
     /*
     >String teacherId (auto-generated)-Private member
@@ -13,10 +16,14 @@ public class Teacher {
     private double salary;
     private static int counter = 0;
 
+    private Map<String,Course> teacherCourseMap;
+
+
     public Teacher(String name, double salary, Course course) {
         setName(name);
         setSalary(salary);
         setTeacherId(course, name);
+        setTeacherCourseMap();
     }
 
     public String getTeacherId() {
@@ -61,5 +68,22 @@ public class Teacher {
 
     public void setSalary(double salary) {
         this.salary = salary;
+    }
+
+    public Map<String, Course> getTeacherCourseMap() {
+        return teacherCourseMap;
+    }
+
+    public void setTeacherCourseMap() {
+        this.teacherCourseMap = new HashMap<>();
+    }
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "name='" + name + '\'' +
+                ", salary=" + salary +
+                ", Course Assign to the Teacher=" + teacherCourseMap +
+                '}';
     }
 }

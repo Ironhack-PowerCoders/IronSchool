@@ -76,4 +76,13 @@ public class Student {
     public void setStudentCourseMap() {
         this.studentCourseMap = new HashMap<>();
     }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "nameSurname='" + nameSurname + '\'' +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
