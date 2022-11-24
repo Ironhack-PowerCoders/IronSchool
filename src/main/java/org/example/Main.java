@@ -5,9 +5,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-
-       /*
-       ##Funcionamiento App
+       /*       ##Funcionamiento App
         1 ask user "name" for the "School" [String schoolName]
         2 ask user number of "Teachers" to create [array teachers]
         3 user enters details of each Teacher (Scanner)
@@ -15,8 +13,7 @@ public class Main {
         5 user enter details of each Course (Scanner)
         6 user enters number of "students" to create [array students]
         7 user enter details of each student (scanner)
-        8 User has to chose between ACTIONS:
-        */
+        8 User has to chose between ACTIONS:        */
 
         School school = new School(null);
         boolean schoolNameIsCorrect = false;
@@ -107,43 +104,18 @@ public class Main {
                     "SHOW TEACHERS: This command will display a list of all teachers\n" +
                     "LOOKUP TEACHER [TEACHER_ID]: This command will display the full details of the specified teacher\n" +
                     "SHOW PROFIT: This command will calculate (The total money earned from all courses) - (The sum of all the teachers’ salaries) and return the result\n" +
-            "EXIT: LEAVE THE APP");
+                    "EXIT: LEAVE THE APP");
 
             String inputCommands= input.nextLine();
 
             switch (inputCommands.toUpperCase()){
                 case "ENROLL":
-                    String studentId;
-                    String courseId;
-
-                    System.out.println("Insert the student ID");
-                   school.getStudentMap().forEach((key,value)->
-                           System.out.println(key+": " + value.getNameSurname()) );
-                     studentId = input.nextLine();
-                    System.out.println("Insert the course ID");
-                    school.getCourseMap().forEach((key,value)->
-                            System.out.println(key+": " + value.getName()+ " " + value.getTime()+ " " + value.getGrade()) );
-                    courseId = input.nextLine();
-
-
-                    Commands.enroll(school, studentId, courseId );
+                    Commands.enroll(school, insertStudentId(school), insertCourseId(school) );
                     break;
 
                     /// revisar si nos interesa este comando ya que ya asignamos el profesor al curso des del inicio
                 case "ASSIGN":
-                    String teacherId;
-
-                    System.out.println("Insert the teacher ID");
-                    school.getTeacherMap().forEach((key,value)->
-                            System.out.println(key+": " + value.getName()) );
-                    teacherId = input.nextLine();
-                    System.out.println("Insert the course ID");
-                    school.getCourseMap().forEach((key,value)->
-                            System.out.println(key+": " + value.getName()+ " " + value.getTime()+ " " + value.getGrade()) );
-                    courseId = input.nextLine();
-
-
-                    Commands.assign(school, teacherId, courseId );
+                    Commands.assign(school, insertTeacherId(school), insertCourseId(school));
                     break;
 
                 case "SHOW COURSES":
@@ -151,12 +123,7 @@ public class Main {
                     break;
 
                 case "LOOKUP COURSE":
-                    System.out.println("Insert the course ID");
-                    school.getCourseMap().forEach((key,value)->
-                            System.out.println(key+": " + value.getName()+ " " + value.getTime()+ " " + value.getGrade()) );
-                    courseId = input.nextLine();
-
-                    Commands.lookupCourses(school,courseId);
+                    Commands.lookupCourses(school, insertCourseId(school));
                     break;
 
                 case "SHOW STUDENTS":
@@ -164,12 +131,7 @@ public class Main {
                     break;
 
                 case "LOOKUP STUDENTS":
-                    System.out.println("Insert the student ID");
-                    school.getStudentMap().forEach((key,value)->
-                            System.out.println(key+": " + value.getNameSurname()) );
-                    studentId = input.nextLine();
-
-                    Commands.lookupStudents(school, studentId);
+                    Commands.lookupStudents(school, insertStudentId(school));
                     break;
 
                 case "SHOW TEACHERS":
@@ -177,12 +139,7 @@ public class Main {
                     break;
 
                 case "LOOKUP TEACHER":
-                    System.out.println("Insert the teacher ID");
-                    school.getTeacherMap().forEach((key,value)->
-                            System.out.println(key+": " + value.getName()) );
-                    teacherId = input.nextLine();
-
-                    Commands.lookupTeachers(school, teacherId);
+                    Commands.lookupTeachers(school, insertTeacherId(school));
                     break;
 
                 case "SHOW PROFIT":
@@ -190,13 +147,40 @@ public class Main {
                     break;
 
                 case "EXIT":
-                    exit=true;
+                    exit = true;
                     break;
-
             }
         }
         while(!exit);
+    }
 
+    public static String insertTeacherId(School school){
+        String teacherId;
+        Scanner input = new Scanner(System.in);
+        System.out.println("Insert the teacher ID");
+        school.getTeacherMap().forEach((key,value)->
+                System.out.println(key+": " + value.getName()) );
+        teacherId = input.nextLine();
+        return teacherId;
+    }
 
+    public static String insertCourseId(School school){
+        String courseId;
+        Scanner input = new Scanner(System.in);
+        System.out.println("Insert the course ID");
+        school.getCourseMap().forEach((key,value)->
+                System.out.println(key+": " + value.getName()+ " " + value.getTime()+ " " + value.getGrade()) );
+        courseId = input.nextLine();
+        return courseId;
+    }
+
+    public static String insertStudentId(School school){
+        String studentId;
+        Scanner input = new Scanner(System.in);
+        System.out.println("Insert the student ID");
+        school.getStudentMap().forEach((key,value)->
+                System.out.println(key+": " + value.getNameSurname()) );
+        studentId = input.nextLine();
+        return studentId;
     }
 }

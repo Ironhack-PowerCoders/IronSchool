@@ -10,7 +10,6 @@ public class Commands {
 //        PARA LLAMAR UN OBJETO SE USA LA EQUIVALENCIA DEL KEY VALUE COMO SI FUERA UNA ITINERANCIA EN ARRAY.
         school.getCourseMap().get(courseId).getCourseStudentMap().put(studentId,school.getStudentMap().get(studentId));
         school.getStudentMap().get(studentId).getStudentCourseMap().put(courseId,school.getCourseMap().get(courseId));
-
         school.getCourseMap().get(courseId).setMoney_earned(school.getCourseMap().get(courseId).getPrice());
     }
 
@@ -22,7 +21,6 @@ public class Commands {
         school.getCourseMap().forEach((key, value) -> {
             System.out.println(key + ": Name " + value.toString()+ ".");
         });
-
     }
 
     public static void lookupCourses(School school, String courseId) {
@@ -33,7 +31,6 @@ public class Commands {
                school.getStudentMap().forEach((key, value) -> {
             System.out.println(key + ": " + value.toString()+ ".");
         });
-
     }
 
     public static void lookupStudents(School school, String studentId) {
@@ -44,7 +41,6 @@ public class Commands {
         school.getTeacherMap().forEach((key, value) -> {
             System.out.println(key + ": " + value.toString()+ ".");
         });
-
     }
 
     public static void lookupTeachers(School school, String teacherId) {
@@ -54,12 +50,6 @@ public class Commands {
     public static void showProfit(School school) {
         double moneyEarned = school.getCourseMap().values().stream().map(course -> course.getMoney_earned()).reduce((aDouble, aDouble2) -> aDouble + aDouble2).orElse(0D);
         double teacherSalary = school.getTeacherMap().values().stream().map(teacher -> teacher.getSalary()).reduce((aDouble, aDouble2) -> aDouble + aDouble2).orElse(0D);
-
         System.out.println(moneyEarned - teacherSalary);
     }
-
-
-
-
-
 }
