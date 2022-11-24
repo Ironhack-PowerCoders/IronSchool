@@ -47,7 +47,7 @@ public class Teacher {
             time = "2";
         }else time = "3";
 
-        this.teacherId = "TJAVA" + name.split(" ")[0].split("")[0].toUpperCase() +
+        this.teacherId = "T" + name.split(" ")[0].split("")[0].toUpperCase() +
                 name.split(" ")[1].split("")[0].toUpperCase() + course.getGrade() + "0" + time + 22 + counter;
         counter++;
     }

@@ -96,7 +96,105 @@ public class Main {
 
         boolean exit = false;
 
-        do{System.out.println("estoy bien");}
+        do{
+            System.out.println("What do you wanna do? \n" +
+                    "ENROLL [STUDENT_ID] [COURSE_ID]: This command will help enroll the student specified in the corresponding course. While also updating the money_earned of that course based on its price\n" +
+                    "ASSIGN [TEACHER_ID] [COURSE_ID]: This command will help assign the teacher specified to the corresponding course\n" +
+                    "SHOW COURSES: This command will display a list of all courses\n" +
+                    "LOOKUP COURSE [COURSE_ID]: This command will display the full details of the specified course\n" +
+                    "SHOW STUDENTS: This command will display a list of all students\n" +
+                    "LOOKUP STUDENT [STUDENT_ID]: This command will display the full details of the specified student\n" +
+                    "SHOW TEACHERS: This command will display a list of all teachers\n" +
+                    "LOOKUP TEACHER [TEACHER_ID]: This command will display the full details of the specified teacher\n" +
+                    "SHOW PROFIT: This command will calculate (The total money earned from all courses) - (The sum of all the teachers’ salaries) and return the result\n" +
+            "EXIT: LEAVE THE APP");
+
+            String inputCommands= input.nextLine();
+
+            switch (inputCommands.toUpperCase()){
+                case "ENROLL":
+                    String studentId;
+                    String courseId;
+
+                    System.out.println("Insert the student ID");
+                   school.getStudentMap().forEach((key,value)->
+                           System.out.println(key+": " + value.getNameSurname()) );
+                     studentId = input.nextLine();
+                    System.out.println("Insert the course ID");
+                    school.getCourseMap().forEach((key,value)->
+                            System.out.println(key+": " + value.getName()+ " " + value.getTime()+ " " + value.getGrade()) );
+                    courseId = input.nextLine();
+
+
+                    Commands.enroll(school, studentId, courseId );
+                    break;
+
+                    /// revisar si nos interesa este comando ya que ya asignamos el profesor al curso des del inicio
+                case "ASSIGN":
+                    String teacherId;
+
+                    System.out.println("Insert the teacher ID");
+                    school.getTeacherMap().forEach((key,value)->
+                            System.out.println(key+": " + value.getName()) );
+                    teacherId = input.nextLine();
+                    System.out.println("Insert the course ID");
+                    school.getCourseMap().forEach((key,value)->
+                            System.out.println(key+": " + value.getName()+ " " + value.getTime()+ " " + value.getGrade()) );
+                    courseId = input.nextLine();
+
+
+                    Commands.assign(school, teacherId, courseId );
+                    break;
+
+                case "SHOW COURSES":
+                    Commands.showCourses(school);
+                    break;
+
+                case "LOOKUP COURSE":
+                    System.out.println("Insert the course ID");
+                    school.getCourseMap().forEach((key,value)->
+                            System.out.println(key+": " + value.getName()+ " " + value.getTime()+ " " + value.getGrade()) );
+                    courseId = input.nextLine();
+
+                    Commands.lookupCourses(school,courseId);
+                    break;
+
+                case "SHOW STUDENTS":
+                    Commands.showStudents(school);
+                    break;
+
+                case "LOOKUP STUDENTS":
+                    System.out.println("Insert the student ID");
+                    school.getStudentMap().forEach((key,value)->
+                            System.out.println(key+": " + value.getNameSurname()) );
+                    studentId = input.nextLine();
+
+                    Commands.lookupStudents(school, studentId);
+                    break;
+
+                case "SHOW TEACHERS":
+                    Commands.showTeachers(school);
+                    break;
+
+                case "LOOKUP TEACHER":
+                    System.out.println("Insert the teacher ID");
+                    school.getTeacherMap().forEach((key,value)->
+                            System.out.println(key+": " + value.getName()) );
+                    teacherId = input.nextLine();
+
+                    Commands.lookupTeachers(school, teacherId);
+                    break;
+
+                case "SHOW PROFIT":
+                    Commands.showProfit(school);
+                    break;
+
+                case "EXIT":
+                    exit=true;
+                    break;
+
+            }
+        }
         while(!exit);
 
 

@@ -19,7 +19,10 @@ public class Commands {
     }
 
     public static void showCourses(School school){
-        System.out.println(school.getCourseMap().keySet());
+        school.getCourseMap().forEach((key, value) -> {
+            System.out.println(key + ": Name " + value.toString()+ ".");
+        });
+
     }
 
     public static void lookupCourses(School school, String courseId) {
@@ -27,7 +30,10 @@ public class Commands {
     }
 
     public static void showStudents(School school){
-        System.out.println(school.getStudentMap().keySet());
+               school.getStudentMap().forEach((key, value) -> {
+            System.out.println(key + ": " + value.toString()+ ".");
+        });
+
     }
 
     public static void lookupStudents(School school, String studentId) {
@@ -35,10 +41,25 @@ public class Commands {
     }
 
     public static void showTeachers(School school) {
-        System.out.println(school.getTeacherMap().keySet());
+        school.getTeacherMap().forEach((key, value) -> {
+            System.out.println(key + ": " + value.toString()+ ".");
+        });
+
     }
 
     public static void lookupTeachers(School school, String teacherId) {
         System.out.println(school.getTeacherMap().get(teacherId).toString());
     }
+
+    public static void showProfit(School school) {
+        double moneyEarned = school.getCourseMap().values().stream().map(course -> course.getMoney_earned()).reduce((aDouble, aDouble2) -> aDouble + aDouble2).orElse(0D);
+        double teacherSalary = school.getTeacherMap().values().stream().map(teacher -> teacher.getSalary()).reduce((aDouble, aDouble2) -> aDouble + aDouble2).orElse(0D);
+
+        System.out.println(moneyEarned - teacherSalary);
+    }
+
+
+
+
+
 }

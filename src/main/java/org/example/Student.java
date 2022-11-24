@@ -37,7 +37,7 @@ public class Student {
     public void setStudentId(String name) {
         String[] nameSurnameSplited = name.split(" ");
 
-            this.studentId = "SJAVA" + nameSurnameSplited[0].split("")[0].toUpperCase() +
+            this.studentId = "S" + nameSurnameSplited[0].split("")[0].toUpperCase() +
                     nameSurnameSplited[1].split("")[0].toUpperCase() + "0" + 22+ counter;
             counter++;
     }
