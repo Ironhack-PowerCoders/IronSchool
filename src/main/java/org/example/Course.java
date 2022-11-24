@@ -54,9 +54,9 @@ public class Course {
 
     public void setCourseId(String name, String time, int grade) {
         String courseTime = time.toLowerCase();
-        if(courseTime.equals("mañana")){
+        if(courseTime.equals("morning")){
             time = "1";
-        } else if (courseTime.equals("tarde")) {
+        } else if (courseTime.equals("afternoon")) {
             time = "2";
         }else time = "3";
 

@@ -49,7 +49,7 @@ public class Student {
     public void setNameSurname(String nameSurname) throws IllegalArgumentException{
         String[] nameSurnameSplited = nameSurname.split(" ");
         if (nameSurnameSplited.length == 2) this.nameSurname = nameSurname;
-        else throw new IllegalArgumentException("Tiene que dar nombre y apellido separados por un expacio señor.");
+        else throw new IllegalArgumentException("Please press the space bar after the name.");
     }
 
     public String getAddress() {

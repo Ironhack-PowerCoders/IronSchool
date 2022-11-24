@@ -41,9 +41,9 @@ public class Teacher {
     public void setTeacherId(Course course, String name) {
         String time;
         String courseTime = course.getTime().toLowerCase();
-        if(courseTime.equals("mañana")){
+        if(courseTime.equals("morning")){
             time = "1";
-        } else if (courseTime.equals("tarde")) {
+        } else if (courseTime.equals("afternoon")) {
             time = "2";
         }else time = "3";
 
@@ -59,7 +59,7 @@ public class Teacher {
     public void setName(String name) throws IllegalArgumentException{
         String[] nameSplited = name.split(" ");
         if ( nameSplited.length == 2) this.name = name;
-        else throw new IllegalArgumentException("Tiene que dar nombre y apellido separados por un expacio señor.");
+        else throw new IllegalArgumentException("Please press the space bar after the name.");
     }
 
     public double getSalary() {
