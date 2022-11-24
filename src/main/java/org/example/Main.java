@@ -93,5 +93,12 @@ public class Main {
             counter++;
         }
         counter = 0;
+
+        boolean exit = false;
+
+        do{System.out.println("estoy bien");}
+        while(!exit);
+
+
     }
 }
