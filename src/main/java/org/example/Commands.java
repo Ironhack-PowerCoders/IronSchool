@@ -23,8 +23,9 @@ public class Commands {
         });
     }
 
-    public static void lookupCourses(School school, String courseId) {
-        System.out.println(school.getCourseMap().get(courseId).toString());
+    public static Course lookupCourses(School school, String courseId) {
+        System.out.println(school.getCourseMap().get(courseId));
+        return school.getCourseMap().get(courseId);
     }
 
     public static void showStudents(School school){

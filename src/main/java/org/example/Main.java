@@ -4,16 +4,11 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
 
+    //preparación de color para la terminal
+    public static final String ANSI_RESET = "\u001B[0m"; public static final String ANSI_YELLOW = "\u001B[33m"; public static final String ANSI_PURPLE = "\u001B[35m"; public static final String ANSI_CYAN = "\u001B[36m";
+
+// Menu de la terminal
     public static void main(String[] args) throws IOException {
 
 
@@ -22,6 +17,8 @@ public class Main {
         Scanner input = new Scanner(System.in);
         int num;
         int counter = 0;
+
+
 
         System.out.println(ANSI_CYAN +"== Welcome to our new APP to manage your school system. ==\n "+ ANSI_RESET);
         //System.out.println("first try");
@@ -39,6 +36,10 @@ public class Main {
                 System.out.println(ANSI_CYAN+"== is " + school.getSchoolName() + " correct? Type true or false to confirm. =="+ ANSI_RESET);
             }
         }
+
+
+//==Creación de Curso==
+
 
         System.out.println(ANSI_CYAN+"== Welcome to " + school.getSchoolName() + "=="+ " \n== How many courses has this institution? =="+ ANSI_RESET);
         num = Integer.parseInt(input.nextLine());
@@ -61,29 +62,57 @@ public class Main {
         }
         counter = 0;
 
+// ==Creación de Profesores==
 
         System.out.println(ANSI_CYAN+"== Welcome to " + school.getSchoolName() +  " == \n== How many teachers are in this institution? =="+ ANSI_RESET);
         num = Integer.parseInt(input.nextLine());
         while (counter != num) {
-            System.out.println(ANSI_CYAN+"== Name the teacher, please Name and Surname. =="+ ANSI_RESET);
-            String name = input.nextLine();
+            String name = null;
+            while (name == null){
+                System.out.println(ANSI_CYAN+"== Name the teacher, please Name and Surname. =="+ ANSI_RESET);
+                name = input.nextLine();
+                try{
+                    if(name.split( " ").length != 2) throw new IllegalArgumentException("Please press the space bar after the name.");
+                }catch (IllegalArgumentException e){
+                    name = null;
+                    System.err.println(e.getMessage());
+                }
+            }
+
             System.out.println(ANSI_CYAN+"== How much the teacher will earn. =="+ ANSI_RESET);
             Double price = Double.valueOf(input.nextLine());
+            Course course = null;
+            while (course ==null){
             System.out.println(ANSI_CYAN+"== Enter the ID =="+ ANSI_RESET);
             school.getCourseMap().forEach((key, value) -> {
                 System.out.println(ANSI_CYAN+"== "+key + ": Name " + value.getName() + " ||| time: " + value.getTime()+"." + " ||| grade: "+ value.getGrade()+"."+ ANSI_RESET);
             });
-            String course = input.nextLine();
-            school.addTeacher(new Teacher(name, price, school.getCourseMap().get(course)));
+             String courseId = input.nextLine();
+             course = Commands.lookupCourses(school,courseId);
+           if (course == null ){ System.err.println("The Course ID selected doesn't exist.");}
+
+            }
+            school.addTeacher(new Teacher(name, price, course));
             counter++;
         }
         counter = 0;
 
+        //==Creación de alumnos==
+
         System.out.println(ANSI_CYAN+"== Welcome to " + school.getSchoolName() + "\nHow many inmates are in this institution? =="+ ANSI_RESET);
         num= Integer.parseInt(input.nextLine());
         while (counter != num) {
-            System.out.println(ANSI_CYAN+"== Insert your Name and Surname. =="+ ANSI_RESET);
-            String name = input.nextLine();
+            String name = null;
+            while (name == null){
+                System.out.println(ANSI_CYAN+"== Insert your Name and Surname. =="+ ANSI_RESET);
+                name = input.nextLine();
+                try{
+                    if(name.split( " ").length != 2) throw new IllegalArgumentException("Please press the space bar after the name.");
+                }catch (IllegalArgumentException e){
+                    name = null;
+                    System.err.println(e.getMessage());
+                }
+            }
             System.out.println(ANSI_CYAN+"== Please, give us the address to send you all the merch. =="+ ANSI_RESET);
             String address = input.nextLine();
             System.out.println(ANSI_CYAN+"== Enter the e-mail. =="+ ANSI_RESET);
@@ -93,6 +122,7 @@ public class Main {
         }
         counter = 0;
 
+//==Pagina 1 de comandos==
         boolean exit = false;
         System.out.println(ANSI_YELLOW+"== ||COMMANDS AVAILABLES|| ==\n" +ANSI_RESET+
                 ANSI_CYAN+"== ENROLL: This command will help enroll the student specified in the corresponding course. While also updating the money_earned of that course based on its price. == \n" +ANSI_RESET+
@@ -112,7 +142,7 @@ public class Main {
                     Commands.enroll(school, insertStudentId(school), insertCourseId(school) );
                     break;
 
-                    /// revisar si nos interesa este comando ya que ya asignamos el profesor al curso des del inicio
+                    /// En este caso sirve para "reasignar" el profesor al curso, no modificará la IP generada para el profesor.
                 case "ASSIGN":
                     Commands.assign(school, insertTeacherId(school), insertCourseId(school));
                     break;
