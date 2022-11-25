@@ -11,18 +11,14 @@ public class Main {
 // Menu de la terminal
     public static void main(String[] args) throws IOException {
 
-
         School school = new School(null);
         boolean schoolNameIsCorrect = false;
         Scanner input = new Scanner(System.in);
         int num;
         int counter = 0;
 
-
-
+    // == Creacion de la escuela ==
         System.out.println(ANSI_CYAN +"== Welcome to our new APP to manage your school system. ==\n "+ ANSI_RESET);
-        //System.out.println("first try");
-        //schoolNameIsCorrect = input.nextLine();
         System.out.println(ANSI_CYAN+ "== Please insert the name of your institution: =="+ ANSI_RESET);
         school.setSchoolName(input.nextLine());
         System.out.println(ANSI_CYAN+ "== is " + school.getSchoolName() + " correct? Type true or false to confirm. =="+ ANSI_RESET);
@@ -37,10 +33,7 @@ public class Main {
             }
         }
 
-
-//==Creación de Curso==
-
-
+    // == Creación de Curso ==
         System.out.println(ANSI_CYAN+"== Welcome to " + school.getSchoolName() + "=="+ " \n== How many courses has this institution? =="+ ANSI_RESET);
         num = Integer.parseInt(input.nextLine());
         while (counter != num) {
@@ -62,8 +55,7 @@ public class Main {
         }
         counter = 0;
 
-// ==Creación de Profesores==
-
+    // == Creación de Profesores ==
         System.out.println(ANSI_CYAN+"== Welcome to " + school.getSchoolName() +  " == \n== How many teachers are in this institution? =="+ ANSI_RESET);
         num = Integer.parseInt(input.nextLine());
         while (counter != num) {
@@ -78,27 +70,24 @@ public class Main {
                     System.err.println(e.getMessage());
                 }
             }
-
             System.out.println(ANSI_CYAN+"== How much the teacher will earn. =="+ ANSI_RESET);
             Double price = Double.valueOf(input.nextLine());
             Course course = null;
             while (course ==null){
-            System.out.println(ANSI_CYAN+"== Enter the ID =="+ ANSI_RESET);
-            school.getCourseMap().forEach((key, value) -> {
-                System.out.println(ANSI_CYAN+"== "+key + ": Name " + value.getName() + " ||| time: " + value.getTime()+"." + " ||| grade: "+ value.getGrade()+"."+ ANSI_RESET);
-            });
-             String courseId = input.nextLine();
-             course = Commands.lookupCourses(school,courseId);
-           if (course == null ){ System.err.println("The Course ID selected doesn't exist.");}
-
+                System.out.println(ANSI_CYAN+"== Enter the ID =="+ ANSI_RESET);
+                school.getCourseMap().forEach((key, value) -> {
+                    System.out.println(ANSI_CYAN+"== "+key + ": Name " + value.getName() + " ||| time: " + value.getTime()+"." + " ||| grade: "+ value.getGrade()+"."+ ANSI_RESET);
+                });
+                String courseId = input.nextLine();
+                course = Commands.lookupCourses(school,courseId);
+                if (course == null ){ System.err.println("The Course ID selected doesn't exist.");}
             }
             school.addTeacher(new Teacher(name, price, course));
             counter++;
         }
         counter = 0;
 
-        //==Creación de alumnos==
-
+    // == Creación de alumnos ==
         System.out.println(ANSI_CYAN+"== Welcome to " + school.getSchoolName() + "\nHow many inmates are in this institution? =="+ ANSI_RESET);
         num= Integer.parseInt(input.nextLine());
         while (counter != num) {
@@ -133,44 +122,33 @@ public class Main {
                         ANSI_PURPLE+"== NEXT PAGE: Show the next commands. ==\n"+ANSI_RESET +
                         ANSI_CYAN+"== EXIT: LEAVE THE APP. == "+ANSI_RESET);
         do{
-
-
             String inputCommands= input.nextLine();
-
             switch (inputCommands.toUpperCase()){
                 case "ENROLL":
                     Commands.enroll(school, insertStudentId(school), insertCourseId(school) );
                     break;
-
-                    /// En este caso sirve para "reasignar" el profesor al curso, no modificará la IP generada para el profesor.
+            // En este caso sirve para "reasignar" el profesor al curso, no modificará la IP generada para el profesor.
                 case "ASSIGN":
                     Commands.assign(school, insertTeacherId(school), insertCourseId(school));
                     break;
-
                 case "SHOW COURSES":
                     Commands.showCourses(school);
                     break;
-
                 case "LOOKUP COURSE":
                     Commands.lookupCourses(school, insertCourseId(school));
                     break;
-
                 case "SHOW STUDENTS":
                     Commands.showStudents(school);
                     break;
-
                 case "LOOKUP STUDENTS":
                     Commands.lookupStudents(school, insertStudentId(school));
                     break;
-
                 case "SHOW TEACHERS":
                     Commands.showTeachers(school);
                     break;
-
                 case "LOOKUP TEACHER":
                     Commands.lookupTeachers(school, insertTeacherId(school));
                     break;
-
                 case "SHOW PROFIT":
                     Commands.showProfit(school);
                     break;
@@ -191,7 +169,6 @@ public class Main {
                             ANSI_PURPLE+"== NEXT PAGE: Show the next commands. ==\n"+ANSI_RESET +
                             ANSI_CYAN+"== EXIT: LEAVE THE APP. == "+ANSI_RESET);
                     break;
-
                 case "EXIT":
                     System.out.println(ANSI_CYAN+"== Thank you for using our system, see you Space Cowboy. =="+ ANSI_RESET);
                     exit = true;
