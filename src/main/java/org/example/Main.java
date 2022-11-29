@@ -1,5 +1,7 @@
 package org.example;
 
+import com.sun.source.tree.WhileLoopTree;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -37,20 +39,34 @@ public class Main {
         System.out.println(ANSI_CYAN+"== Welcome to " + school.getSchoolName() + "=="+ " \n== How many courses has this institution? =="+ ANSI_RESET);
         num = Integer.parseInt(input.nextLine());
         while (counter != num) {
-            System.out.println(ANSI_CYAN+"== Name the course. =="+ ANSI_RESET);
+            System.out.println(ANSI_CYAN + "== Name the course. ==" + ANSI_RESET);
             String name = input.nextLine();
-            System.out.println(ANSI_CYAN+"== Price the knowledge. =="+ ANSI_RESET);
-            Double price = Double.valueOf(input.nextLine());
-            System.out.println(ANSI_CYAN+"== Choose the schedule:  == \n 1.morning. \n 2.afternoon. \n 3.night. "+ ANSI_RESET);
-            int time = Integer.parseInt(input.nextLine());
+            Double price = 0.00;
+            boolean prieceIsADouble = false;
+            do {
+                System.out.println(ANSI_CYAN + "== Price the knowledge. ==" + ANSI_RESET);
+                try{
+                    price = Double.valueOf(input.nextLine());
+                    Double.valueOf(price);
+                }catch (Exception ex){ prieceIsADouble = false;}
+                prieceIsADouble = true;
+            } while (!prieceIsADouble);
+
             String horario;
-            if (time == 1) horario = "morning";
-            else if (time == 2) horario = "afternoon";
-            else if (time == 3) horario = "night";
-            else throw new IOException();
-            System.out.println(ANSI_CYAN+"== Enter the grade of the course. =="+ ANSI_RESET);
-            int year = Integer.parseInt(input.nextLine());
-            school.addCourse(new Course(name, price, horario, year));
+            do {
+                System.out.println(ANSI_CYAN + "== Choose the schedule:  == \n 1.morning. \n 2.afternoon. \n 3.night. " + ANSI_RESET);
+                int time = Integer.parseInt(input.nextLine());
+                if (time == 1) horario = "morning";
+                else if (time == 2) horario = "afternoon";
+                else if (time == 3) horario = "night";
+                else throw new IOException();
+            } while (horario != "morning" || horario != "afternoon" || horario != "night");
+            int year = 0;
+            do {
+                System.out.println(ANSI_CYAN + "== Enter the grade of the course. ==" + ANSI_RESET);
+                year = Integer.parseInt(input.nextLine());
+                school.addCourse(new Course(name, price, horario, year));
+            } while (1 > year && year > 6);
             counter++;
         }
         counter = 0;
@@ -70,8 +86,17 @@ public class Main {
                     System.err.println(e.getMessage());
                 }
             }
-            System.out.println(ANSI_CYAN+"== How much the teacher will earn. =="+ ANSI_RESET);
-            Double price = Double.valueOf(input.nextLine());
+            Double price = 0.00;
+            boolean prieceIsADouble = false;
+            do {
+                System.out.println(ANSI_CYAN+"== How much the teacher will earn. =="+ ANSI_RESET);
+                try{
+                    price = Double.valueOf(input.nextLine());
+                    Double.valueOf(price);
+                }catch (Exception ex){ prieceIsADouble = false;}
+                prieceIsADouble = true;
+            } while (!prieceIsADouble);
+
             Course course = null;
             while (course ==null){
                 System.out.println(ANSI_CYAN+"== Enter the ID =="+ ANSI_RESET);
